@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Corte de Bobinas</title>
+       <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+		h3 {
+            color: #2c3e50;
+        }
+		.report-info {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
+			font-size: 14px;
+		}
+		.left-info {
+			text-align: left;
+		}
+		.right-info {
+			text-align: right;
+		}
+        .row {
+            display: flex;
+            margin-bottom: 5px;
+            height: 50px; /* Aumentado para acomodar o nome do cliente */
+        }
+        .execution-id, .bobina-size, .row-label {
+            flex: 0 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            font-weight: bold;
+        }
+        .bobina-size, .row-label {
+            flex: 0 0 80px;
+        }		
+        .cell {
+            display: flex;
+			flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #ddd;
+            font-weight: bold;
+            margin-right: 2px;
+        }
+        .cell-size {
+            font-size: 16px;
+        }
+        .cell-client {
+            font-size: 10px;
+            font-weight: normal;
+        }		
+        .remainder {
+            flex: 0 0 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f8f8f8;
+            border: 1px solid #ddd;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 20px;
+            color: #777;
+        }
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        .flex-item {
+            flex: 1;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .small-content td {
+            font-size: 0.85em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="report">
+	<h1>PLANO DE CORTE</h1>
+    <div class="report-info">
+    	<span class="left-info"><strong>C&oacute;digo Plano de Corte:</strong> <!--ID-PLANO--></span>
+    	<span class="right-info"><strong>Gera&ccedil;&atilde;o do Plano:</strong> <!--GERACAO-PLANO--><span id="currentDate"></span></span>
+	</div>
+	
+    <div class="flex-container">
+        <div class="flex-item">
+            <h3>Resumo do Projeto</h3>
+            <table class="small-content">
+                <tr>
+                    <th>Descri&ccedil;&atilde;o</th>
+                    <th>Valor</th>
+                </tr>
+                <tr>
+                    <td>Comprimento total das pe&ccedil;as (Quantidade)</td>
+                    <td><!--COMPRIMENTO-TOTAL--></td>
+                </tr>
+                <tr>
+                    <td>Comprimento total dos estoques usados (Rendimento)</td>
+                    <td><!--COMPRIMENTO-RENDIMENTO--></td>
+                </tr>
+                <tr>
+                    <td>Total de layouts de corte</td>
+                    <td><!--TOTAL-LAYOUTS-CORTES--></td>
+                </tr>
+                <tr>
+                    <td>N&uacute;mero total de cortes</td>
+                    <td><!--NUM-TOTAL-CORTES--></td>
+                </tr>
+            </table>
+        </div>
+		
+        <div class="flex-item">
+            <h3>Estoques Necess&aacute;rios</h3>
+            <table class="small-content">
+                <tr>
+                    <th>Comprimento do Estoque</th>
+                    <th>Quantidade</th>
+                </tr>
+				<!--ITENS-COMPRIMENTO-ESTOQUE-->
+            </table>
+        </div>
+
+    </div>	
+	
+	<div class="row">
+	    <div class="execution-id">ID</div>
+	    <div class="bobina-size">Largura</div>
+	    <div class="row-label">Repeti&ccedil;&atilde;o</div>
+		<div class="remainder">Resto</div>
+	    <div class="cell" style="flex-grow: 1;">Cortes (mm)</div>
+	</div>
+	
+	<!--LINHA-AQUI-->
+	<div class="footer">
+	  <p>Esta consulta foi gerada automaticamente</p>
+	</div>
+
+</div>
+</body>
+</html>
