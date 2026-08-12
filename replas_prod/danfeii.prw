@@ -1290,6 +1290,7 @@ local cAuxUn		:= ""
 local lSpedCodOnu	:= existFunc("SpedCodOnu") .and. allTrim(superGetMv("MV_NONUINF",,"0")) == "1"
 Local lInfAdProd	:= .F.
 Local lFat853		:= .F.
+Local cCodEmp       := FWCodEmp()
 
 Default cDtHrRecCab := ""
 Default dDtReceb    := CToD("")
@@ -2930,19 +2931,19 @@ aadd(aUF,{"EX","99"})
 //읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 If lMv_Logod
 	cGrpCompany	:= AllTrim(FWGrpCompany())
-	cCodEmpGrp	:= AllTrim(FWCodEmp())
+	cCodEmpGrp	:= AllTrim(cCodEmp)
 	cUnitGrp	:= AllTrim(FWUnitBusiness())
 	cFilGrp		:= AllTrim(FWFilial())
 
 	If !Empty(cUnitGrp)
 		cDescLogo	:= cGrpCompany + cCodEmpGrp + cUnitGrp + cFilGrp
 	Else
-		cDescLogo	:= cEmpAnt + cFilAnt
+		cDescLogo	:= cCodEmp + FWCodFil()
 	EndIf
 
 	cLogoD := GetSrvProfString("Startpath","") + "DANFE" + cDescLogo + ".BMP"
 	If !File(cLogoD)
-		cLogoD	:= GetSrvProfString("Startpath","") + "DANFE" + cEmpAnt + ".BMP"
+		cLogoD	:= GetSrvProfString("Startpath","") + "DANFE" + cCodEmp + ".BMP"
 		If !File(cLogoD)
 			lMv_Logod := .F.
 		EndIf
@@ -5264,6 +5265,7 @@ Local lConverte   	:= .F. //GetNewPar("MV_CONVERT",.F.)
 Local lMv_ItDesc  	:= .F. //Iif( GetNewPar("MV_ITDESC","N")=="S", .T., .F. )
 Local lMv_Logod   	:= .F. //If(GetNewPar("MV_LOGOD", "N" ) == "S", .T., .F.   )
 Local lNFCE 		:= Substr(oNFe:_NFe:_InfNfe:_ID:Text,24,2) == "65"
+Local cCodEmp       := FWCodEmp()
 
 Private oDPEC     := oNfeDPEC
 Private oNF       := oNFe:_NFe
@@ -5506,9 +5508,9 @@ EndIf
 
 //Logotipo
 If lMv_Logod
-	cLogoD := GetSrvProfString("Startpath","") + "DANFE" + cEmpAnt + cFilAnt + ".BMP"
+	cLogoD := GetSrvProfString("Startpath","") + "DANFE" + cCodEmp + FWCodFil() + ".BMP"
 	If !File(cLogoD)
-		cLogoD	:= GetSrvProfString("Startpath","") + "DANFE" + cEmpAnt + ".BMP"
+		cLogoD	:= GetSrvProfString("Startpath","") + "DANFE" + cCodEmp + ".BMP"
 		If !File(cLogoD)
 			lMv_Logod := .F.
 		EndIf

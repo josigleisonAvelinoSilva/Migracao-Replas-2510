@@ -14,7 +14,7 @@ User Function REFATA12()
     Local oBtn01
 
     //-- Parametro que contem os usuario aptos a modificar os pedido de venda de Filmes, nao influenciando no processo das Resinas
-    If !IsBlind() .And. cFilAnt == cFilOrig .And. __cUserId $ GetMV("RE_MPVEND", .F., "000000/000120/000111/000147/000173/000013/")
+    If !IsBlind() .And. FWCodFil() == cFilOrig .And. RetCodUsr() $ GetMV("RE_MPVEND", .F., "000000/000120/000111/000147/000173/000013/")
         dbSelectArea("SA1")
         SA1->(dbSetOrder(1))
 

@@ -8,7 +8,7 @@ Teste de Gravagues de Registros na Tabela SZ9 - Produtos Auxiliares
 @return variant, gravagco de Registro SZ9
 /*/
 User Function mta250mnu()
-    If __cUserId == "000155"  //--Dothink - Teste de Gravagco SZ9
+    If RetCodUsr() == "000155"  //--Dothink - Teste de Gravagco SZ9
         Aadd(aRotina, { "Aponta Retorno/Sucata", "U_XAPRETOR()", 0, 2, 0, NIL})
     Endif
 Return aRotina 

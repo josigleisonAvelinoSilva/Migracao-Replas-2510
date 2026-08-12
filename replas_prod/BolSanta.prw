@@ -75,7 +75,7 @@ Default  _EmisFim	:= CtoD("  /  /  ")
 Default  _cTitulo	:= ""
 
 SM0->( dbSetOrder( 1 ) )
-SM0->( MsSeek( cEmpAnt + cFilAnt ))
+SM0->( MsSeek( FWCodEmp() + FWCodFil() ))
 
 oFont18N := TFont():New("Arial",18,18,,.T.,,,,.T.,.F.)
 oFont18  := TFont():New("Arial",18,18,,.F.,,,,.T.,.F.)

@@ -119,10 +119,10 @@ static Function Audit()
     Local _aInfo  
 
 	PBJ->(DbSetOrder(1))
-	_lNew := !PBJ->(DbSeek(xFilial()+__CUSERID))
+	_lNew := !PBJ->(DbSeek(xFilial()+RetCodUsr()))
 	RecLock("PBJ",_lNew)
 	If _lNew
-		PBJ->PBJ_IDUSER := __CUSERID
+		PBJ->PBJ_IDUSER := RetCodUsr()
         PBJ->PBJ_LOGIN  := cUserName
 		PBJ->PBJ_DTINC  := Date()
 		PBJ->PBJ_FILTRO := "P"
@@ -132,8 +132,8 @@ static Function Audit()
 	PBJ->PBJ_ACESSO := Date()
 	PBJ->PBJ_ENV    := GetEnvServer()
 	PBJ->PBJ_HRACES := SubStr(Time(),1,5)
-	PBJ->PBJ_EMP    := cEmpAnt
-	PBJ->PBJ_FIL    := cFilAnt
+	PBJ->PBJ_EMP    := FWCodEmp()
+	PBJ->PBJ_FIL    := FWCodFil()
 	PBJ->PBJ_ESTAT  := PBJ->PBJ_ESTAT + 1
 	PBJ->PBJ_VRPO   := U_VRPO()
 	If !IsTelNet()
@@ -152,7 +152,7 @@ static Function Audit()
 	PBJ->(MsUnlock())
 
 	RecLock("PBK",.T.)
-	PBK->PBK_IDUSER := __CUSERID
+	PBK->PBK_IDUSER := RetCodUsr()
 	PBK->PBK_LOGIN  := cUserName
 	PBK->PBK_IP     := GetClientIP()
 	PBK->PBK_COMPUT := GetComputerName()
@@ -161,8 +161,8 @@ static Function Audit()
 	PBK->PBK_ENV    := GetEnvServer()
 	PBK->PBK_HRACES := SubStr(Time(),1,5)
 	PBK->PBK_FUNCAO := STRTRAN(ParamIXB,"()","")
-	PBK->PBK_EMP    := cEmpAnt
-	PBK->PBK_FIL    := cFilAnt
+	PBK->PBK_EMP    := FWCodEmp()
+	PBK->PBK_FIL    := FWCodFil()
 	PBK->PBK_VRPO   := U_VRPO()
 	If !IsTelNet()
 		PBK->PBK_SO     := _aInfo[2]

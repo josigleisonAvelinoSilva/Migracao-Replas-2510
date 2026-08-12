@@ -28,7 +28,7 @@ User Function REESTA22()
     Local nQtdPV   := 0
     Local lRet     := .T.
 
-    If !IsBlind() .And. IsInCallStack("MATA250") .And. cFilAnt == cFilDest
+    If !IsBlind() .And. IsInCallStack("MATA250") .And. FWCodFil() == cFilDest
         //-- Procura pelo pedido, verificando se existe pedido origem
         If Empty(SC2->C2_XFILORI) .And. Empty(SC2->C2_XPVORIG)
             cSeekSC5 := xFilial("SC2") + SC2->C2_NUM

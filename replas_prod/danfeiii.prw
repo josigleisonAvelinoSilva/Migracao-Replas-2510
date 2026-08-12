@@ -3558,7 +3558,7 @@ Local cGrpCompany	:= ""
 Local cCodEmpGrp	:= ""
 Local cUnitGrp		:= ""
 Local cFilGrp		:= ""
-
+Local cCodEmp       := FWCodEmp()
 Private oDPEC    := oNfeDPEC
 
 Default cCodAutSef := ""
@@ -3676,19 +3676,19 @@ oDanfe:Say(nLine+130,nBaseTxt,"FOLHA "+StrZero(nFolha,2)+"/"+StrZero(nFolhas,2),
 //읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
 If lMv_Logod
 	cGrpCompany	:= AllTrim(FWGrpCompany())
-	cCodEmpGrp	:= AllTrim(FWCodEmp())
+	cCodEmpGrp	:= AllTrim(cCodEmp)
 	cUnitGrp	:= AllTrim(FWUnitBusiness())
 	cFilGrp		:= AllTrim(FWFilial())
 
 	If !Empty(cUnitGrp)
 		cDescLogo	:= cGrpCompany + cCodEmpGrp + cUnitGrp + cFilGrp
 	Else
-		cDescLogo	:= cEmpAnt + cFilAnt
+		cDescLogo	:= cCodEmp + FWCodFil()
 	EndIf
 
 	cLogoD := GetSrvProfString("Startpath","") + "DANFE" + cDescLogo + ".BMP"
 	If !File(cLogoD)
-		cLogoD	:= GetSrvProfString("Startpath","") + "DANFE" + cEmpAnt + ".BMP"
+		cLogoD	:= GetSrvProfString("Startpath","") + "DANFE" + cCodEmp + ".BMP"
 		If !File(cLogoD)
 			lMv_Logod := .F.
 		EndIf

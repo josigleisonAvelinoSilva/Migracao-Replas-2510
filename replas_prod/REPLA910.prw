@@ -380,7 +380,7 @@ Static Function R010Resumo( oLbx )
 
     AAdd( aResumo, Replicate( '-', nTrace ) )
 
-    AAdd( aResumo, 'USUÁRIO (COD/NOME)..[' + __cUserID + '-' + UsrRetName( __cUserID ) + ']' )
+    AAdd( aResumo, 'USUÁRIO (COD/NOME)..[' + RetCodUsr() + '-' + UsrRetName( RetCodUsr() ) + ']' )
     AAdd( aResumo, 'DATA/HORA...........[' + Dtoc(MsDate())+']' )
     AAdd( aResumo, 'IP COMPUTER.........[' + GetClientIP() +']' )
     AAdd( aResumo, 'NAME COMPUTER.......[' + GetComputerName() + ']' )

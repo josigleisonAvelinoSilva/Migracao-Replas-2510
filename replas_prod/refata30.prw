@@ -19,7 +19,7 @@ User Function refata30()
 
 	Private oBrowseSZG := Nil
 
-	If !(cFilAnt == cFilOrig)
+	If !(FWCodFil() == cFilOrig)
 		FWAlertError("Somente é permitido acessar o <b>" + cTitulo + "</b> na Filial [<b>" + cFilOrig + "</b>].", "Não Permitido!")
 		Return
 	EndIf

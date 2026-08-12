@@ -58,7 +58,7 @@ User Function A250ITOK()
     Local lErrBlqMov  := .F.
     Local lErrSld	  := .F.
 
-	If !lAtuEmp .And. lIntIndMM .And. lAptPerda .And. cFilAnt == cFilDest .And. !IsInCallStack( "U_REFATA06" )
+	If !lAtuEmp .And. lIntIndMM .And. lAptPerda .And. FWCodFil() == cFilDest .And. !IsInCallStack( "U_REFATA06" )
 		aSaldo  := {}
 		aNewSal := {}
 		aErros  := {}

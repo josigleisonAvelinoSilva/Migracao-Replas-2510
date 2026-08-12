@@ -134,10 +134,10 @@ Static Function TituloOP(oPrinter, cOrdem)
     oPrinter:Say( nLin, nCol+125, cOrdem, oFont02 )
     oPrinter:Say( nLin, nCol+350, "Dt. Emissão: " + DToC( dDtEmis ), oFont01 )
     nLin += 15
-    oPrinter:Say( nLin, nCol-25, "Filial Origem: " + cFilOri + " - " + FWFilName( cEmpAnt, cFilOri ), oFont01 )
+    oPrinter:Say( nLin, nCol-25, "Filial Origem: " + cFilOri + " - " + FWFilName( FWCodEmp(), cFilOri ), oFont01 )
     oPrinter:Say( nLin, nCol+350, "Hr. Emissão: " + cHrEmis, oFont01 )
     nLin += 15
-    oPrinter:Say( nLin, nCol-35, "Filial Destino: " + cFilAnt + " - " + FWFilName( cEmpAnt, cFilAnt ), oFont01 )
+    oPrinter:Say( nLin, nCol-35, "Filial Destino: " + FWCodFil() + " - " + FWFilName( FWCodEmp(), FWCodFil() ), oFont01 )
     oPrinter:Say( nLin, nCol+350, "Folha: " + cFolha, oFont01 )
 	nLin += 10		
 	oPrinter:Line( nLin, 15, nLin, nSizePage-(nTamMarg*4) )

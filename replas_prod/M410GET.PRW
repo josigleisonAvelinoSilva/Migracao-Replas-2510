@@ -12,7 +12,7 @@ com o objetivo de permitir validacoes de usuarios e preenchimento de campos do p
 User Function M410GET()
     Local cFilOrig := GetMV("RE_FILORIG", .F., "0302")
 
-    If cFilAnt == cFilOrig .And. (INCLUI .Or. ALTERA)
+    If FWCodFil() == cFilOrig .And. (INCLUI .Or. ALTERA)
         SetKey(VK_F6,{|| U_REPLAA18()})
     EndIf
 

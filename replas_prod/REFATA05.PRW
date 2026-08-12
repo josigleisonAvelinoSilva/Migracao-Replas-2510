@@ -32,7 +32,7 @@ User Function REFATA05(cXFilial, cPedido, cItemPV, nNewQtd, cMsg, dNewDtEnt)
     Local xConteudo  := Nil
     Local cFileLog   := ""
     Local cMensLog   := ""
-    Local cBkpFilAnt := cFilAnt
+    Local cBkpFilAnt := FWCodFil()
     Local lRet       := .T.
     Local lUpdDate   := !Empty(dNewDtEnt)
 

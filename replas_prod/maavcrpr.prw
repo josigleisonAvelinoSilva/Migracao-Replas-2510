@@ -22,7 +22,7 @@ User Function maavcrpr()
     //Local cCodigo    := ParamIxb[8]  //-- Codigo com o tipo de bloqueio de credito
     Local cFilialFat := GetMv("MV_XFILFAT")
 
-    If cFilAnt $ cFilialFat .And. AllTrim(SC5->C5_CONDPAG) $ "001/"
+    If FWCodFil() $ cFilialFat .And. AllTrim(SC5->C5_CONDPAG) $ "001/"
         lRetorno := .F.
     EndIf
 

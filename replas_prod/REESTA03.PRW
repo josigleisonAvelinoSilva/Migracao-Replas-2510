@@ -368,7 +368,7 @@ User Function resta03I()
 	Local cFilOrig := GetMV("RE_FILORIG", .F., "0302")
 
 
-	If cFilAnt # cFilOrig
+	If FWCodFil() # cFilOrig
 		FWAlertError("Somente é permitido realizar a <b>" + cTitulo + "</b> na Filial [<b>" + cFilOrig + "</b>].", "Não Permitido!")
 		Return
 	EndIf
@@ -575,7 +575,7 @@ Static Function GrvNota(aCab, aItens)
 		SZB->ZB_CHVNFE	:= cChvNfe
 		SZB->ZB_DTINT	:= Date()
 		SZB->ZB_HRINT	:= Time()
-		SZB->ZB_USER	:= __cUserId
+		SZB->ZB_USER	:= RetCodUsr()
 		SZB->ZB_STATUS	:= 'I'
 	SZB->( MsUnlock() )
 
@@ -898,7 +898,7 @@ User Function resta03Y(nOpc)
 	Private cNumDoc  := Space(TamSX3("F1_DOC")[1])
 	Private cSerie   := Space(TamSX3("F1_SERIE")[1])	    	
 
-	If cFilAnt # cFilOrig
+	If FWCodFil() # cFilOrig
 		FWAlertError("Somente é permitido realizar a <b>" + cTitulo + "</b> na Filial [<b>" + cFilOrig + "</b>].", "Não Permitido!")
 		Return
 	EndIf
@@ -1099,7 +1099,7 @@ Static Function fGrvSZD( cAlias )
 						SZB->ZB_CHVNFE	:= "" //--cChvNfe
 						SZB->ZB_DTINT	:= Date()
 						SZB->ZB_HRINT	:= Time()
-						SZB->ZB_USER	:= __cUserId
+						SZB->ZB_USER	:= RetCodUsr()
 						SZB->ZB_STATUS	:= 'I'
 					SZB->( MsUnlock() )
 					lFirst := .F.
@@ -1186,7 +1186,7 @@ User Function resta03X()
 	Local cSerie   := Space(TamSX3("F1_SERIE")[1])
 	local cFilOrig := GetMV("RE_FILORIG", .F., "0302")    	
 
-	If cFilAnt # cFilOrig
+	If FWCodFil() # cFilOrig
 		FWAlertError("Somente é permitido realizar a <b>" + cTitulo + "</b> na Filial [<b>" + cFilOrig + "</b>].", "Não Permitido!")
 		Return
 	EndIf
@@ -1238,7 +1238,7 @@ Static Function fGrvINNOVA( cNumDoc, cSerie, cForIN, cLjIN  )
 		SZB->ZB_CHVNFE	:= "" //--cChvNfe
 		SZB->ZB_DTINT	:= Date()
 		SZB->ZB_HRINT	:= Time()
-		SZB->ZB_USER	:= __cUserId
+		SZB->ZB_USER	:= RetCodUsr()
 		SZB->ZB_STATUS	:= 'I'
 		SZB->( MsUnlock() )
 

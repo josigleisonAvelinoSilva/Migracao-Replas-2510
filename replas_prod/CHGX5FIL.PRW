@@ -18,4 +18,4 @@
 
 USER FUNCTION CHGX5FIL()
 
-Return cFilAnt
+Return FWCodFil()

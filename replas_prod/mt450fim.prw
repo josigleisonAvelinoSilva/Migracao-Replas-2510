@@ -70,7 +70,7 @@ Static Function ExecPVRmt( cPedido, cFilOrig, cFilDest )
         EndIf
 
         //-- Chama a rotina de Inclusao/Alteracao dos Pedidos de Venda Destino
-        U_REFATA01( { cEmpAnt       ,; //-- Empresa
+        U_REFATA01( { FWCodEmp()       ,; //-- Empresa
                       SC5->C5_FILIAL,; //-- Filial Origem
                       SC5->C5_NUM   ,; //-- Pedido Origem
                       cFilDest      ,; //-- Filial Destino

@@ -18,7 +18,7 @@ User Function REESTA18()
 
     Private aItensST  := {}
     Private cCodBarra := IIf( FindFunction( 'AcdGTamETQ' ), AcdGTamETQ(), Space(48) ) //Space(75)
-    Private cFOrig    := cFilAnt //Space(Len(NNT->NNT_FILORI))
+    Private cFOrig    := FWCodFil() //Space(Len(NNT->NNT_FILORI))
     Private cFDest    := Space(Len(NNT->NNT_FILDES))
     Private cAOrig    := "01"
     Private cADest    := Space(Len(NNT->NNT_LOCLD))
@@ -125,20 +125,21 @@ Rotina de validacao da filial digitada pelo usuario
 @return logical, Retorno logico
 /*/
 Static Function VldFil(cOriDest, cODFil)
+    Local cCodFil	:= FWCodFil()  
 
     If Empty(cODFil)
         Return .T.
     EndIf
 
     If cOriDest == "D"
-        If cFilAnt == cFDest
+        If cCodFil == cFDest
             VTBeep(2)
-            VTAlert("Filial destino nao pode ser igual origem " + cFilAnt + "!", "ATENCAO", .T., 3000)
+            VTAlert("Filial destino nao pode ser igual origem " + cCodFil + "!", "ATENCAO", .T., 3000)
             VTKeyboard(chr(20))
             Return .F.
         EndIf
 
-        If !(cFilAnt == cFilOrig) .And. !(cFDest == cFilOrig)
+        If !(cCodFil == cFilOrig) .And. !(cFDest == cFilOrig)
             VTBeep(2)
             VTAlert("Filial destino " + cFDest + " nao pemitida!", "ATENCAO", .T., 3000)
             VTKeyboard(chr(20))
@@ -228,6 +229,8 @@ Static Function VldCodBar(cTipo)
     Local cQuery    := ""
     Local nQuant    := 0
     Local nPos
+    Local cCodFil	:= FWCodFil() 
+    
 
     If Empty(cCodBarra)
         Return .F.
@@ -305,20 +308,20 @@ Static Function VldCodBar(cTipo)
         If _QRYSLD->(!EoF())
             If Empty(_QRYSLD->B8_SALDO)
                 VTBeep(2)
-                VTAlert("Bobina sem saldo na " + cFilAnt + "!", "ATENCAO", .T., 3000)
+                VTAlert("Bobina sem saldo na " + cCodFil + "!", "ATENCAO", .T., 3000)
                 VTKeyboard(chr(20))
                 Return .F.
             EndIf
 
             If !Empty(_QRYSLD->B8_EMPENHO)
                 VTBeep(2)
-                VTAlert("Bobina com saldo empenhado na " + cFilAnt + "!", "ATENCAO", .T., 3000)
+                VTAlert("Bobina com saldo empenhado na " + cCodFil + "!", "ATENCAO", .T., 3000)
                 VTKeyboard(chr(20))
                 Return .F.
             EndIf
 
             If QtdComp(_QRYSLD->B8_SALDO) != QtdComp(nQuant)
-                If !VTYesNo("Saldo diferente, " + AllTrim(Transform(_QRYSLD->B8_SALDO, "@E 999,999.99")) + " Kg na " + cFilAnt + ", deseja continuar?", "ATENCAO")
+                If !VTYesNo("Saldo diferente, " + AllTrim(Transform(_QRYSLD->B8_SALDO, "@E 999,999.99")) + " Kg na " + cCodFil + ", deseja continuar?", "ATENCAO")
                     VTKeyboard(chr(20))  
                     Return .F.
                 EndIf
@@ -333,7 +336,7 @@ Static Function VldCodBar(cTipo)
             EndIf
         Else
             VTBeep(2)
-            VTAlert("Bobina nao existe na " + cFilAnt + "!", "ATENCAO", .T., 3000)
+            VTAlert("Bobina nao existe na " + cCodFil + "!", "ATENCAO", .T., 3000)
             VTKeyboard(chr(20))
             Return .F.
         EndIf

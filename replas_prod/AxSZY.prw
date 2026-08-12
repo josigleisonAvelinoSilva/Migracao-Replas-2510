@@ -60,7 +60,7 @@ Local _aFlxProcess := Array(2,'')
 
 Private _cIdOK    := AllTrim(GetMV('RP_CFGMOTO',.F.,'000000'))
 
-IF !(__cUserID $ _cIdOK)
+IF !(RetCodUsr() $ _cIdOK)
 	MsgInfo('Usuário sem permissao na rotina!','Atenção')
 	Return
 ENDIF
@@ -176,7 +176,7 @@ Static Function xSeqSZY(_aTemp)
 *---------------------*
 Local _cSeq := '01'
 //_cQry := "SELECT MAX(Left(ZY_SEQ,2)) MAXSEQ FROM "+RetSqlName('SZY')+" SZY WHERE SZY.D_E_L_E_T_= '' AND ZY_FILIAL = '"+xFilial('SZY')+"' AND ZY_EMPRESA = '"+_aTemp[1]+"' AND ZY_MFILIAL = '"+_aTemp[2]+"' AND ZY_CODIGO = '"+_aTemp[3]+"' "
-//_cQry := "SELECT MAX(Left(ZY_SEQ,2)) MAXSEQ FROM "+RetSqlName('SZY')+" SZY WHERE SZY.D_E_L_E_T_= '' AND ZY_FILIAL = '"+xFilial('SZY')+"' AND ZY_EMPRESA = '"+cEmpAnt+"' AND ZY_MFILIAL = '"+cFilAnt+"' AND ZY_CODIGO = '"+_aTemp[3]+"' " 
+//_cQry := "SELECT MAX(Left(ZY_SEQ,2)) MAXSEQ FROM "+RetSqlName('SZY')+" SZY WHERE SZY.D_E_L_E_T_= '' AND ZY_FILIAL = '"+xFilial('SZY')+"' AND ZY_EMPRESA = '"+FWCodEmp()+"' AND ZY_MFILIAL = '"+FWCodFil()+"' AND ZY_CODIGO = '"+_aTemp[3]+"' " 
 _cQry := "SELECT MAX(Left(ZY_SEQ,2)) MAXSEQ FROM "+RetSqlName('SZY')+" SZY WHERE SZY.D_E_L_E_T_= '' AND ZY_FILIAL = '"+xFilial('SZY')+"' AND ZY_CODIGO = '"+_aTemp[3]+"' AND ZY_DESCRI = '"+_aTemp[4]+"' "
 If Select("_WST") > 0
 	_WST->(DbCloseArea())
@@ -304,8 +304,8 @@ _cQry += "   WHERE SZY.D_E_L_E_T_= ''                    "+ENTER
 _cQry += "     AND ZY_FILIAL     = '"+xFilial('SZY') +"' "+ENTER
 _cQry += "     AND ZY_DESCRI     = '"+M->ZY_DESCRI   +"' "+ENTER
 _cQry += "     AND ZY_CODIGO     = '"+M->ZY_CODIGO   +"' "+ENTER
-_cQry += "     AND ZY_EMPRESA    = '"+cEmpAnt        +"' "+ENTER
-_cQry += "     AND ZY_MFILIAL    = '"+cFilAnt        +"' "+ENTER
+_cQry += "     AND ZY_EMPRESA    = '"+FWCodEmp()     +"' "+ENTER
+_cQry += "     AND ZY_MFILIAL    = '"+FWCodFil()     +"' "+ENTER
 _cQry += "     AND ZY_PROXIMO    = '"+M->ZY_PROXIMO  +"' "+ENTER
 If Select("_TMY") > 0
 	_TMY->(DbCloseArea())

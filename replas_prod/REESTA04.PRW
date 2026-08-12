@@ -76,7 +76,7 @@ User Function REESTA04(aItens, cNumST, cMsg)
 				cTSaida := AllTrim(aItens[nX, 11])
 				cTEntra := AllTrim(aItens[nX, 12])
 			Else
-				cFilOri := cFilAnt
+				cFilOri := FWCodFil()
 				cFilDes := Iif(Empty(aItens[nX, 07]), AllTrim(cFilDes), AllTrim(aItens[nX, 07]))
 				cArmOri := AllTrim(aItens[nX, 02])
 				cArmDes := AllTrim(aItens[nX, 02])

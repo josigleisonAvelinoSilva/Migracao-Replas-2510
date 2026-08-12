@@ -14,9 +14,10 @@ User Function EMP650()
     Local cFilOrig := GetMV( "RE_FILORIG", .F., "0302" )
     Local cFilDest := GetMV( "RE_FILDEST", .F., "0201" )
     Local lSgtBob  := GetMV("RE_SGTBOB", .F., .T.)
+    Local cCodFil	:= FWCodFil()
 
-    If ( IsInCallStack("MATA650C") .And. cFilAnt $ cFilDest .And. lSgtBob .And. aPergSgt[01] == 1 ) .Or.;
-       ( IsInCallStack("U_REFATA06") .And. cFilAnt $ cFilOrig )
+    If ( IsInCallStack("MATA650C") .And. cCodFil $ cFilDest .And. lSgtBob .And. aPergSgt[01] == 1 ) .Or.;
+       ( IsInCallStack("U_REFATA06") .And. cCodFil $ cFilOrig )
 
         U_REPCPA08()
     EndIf

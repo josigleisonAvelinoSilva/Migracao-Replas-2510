@@ -151,7 +151,7 @@ Static Function SldLote()
 	If Rastro(B1_COD)
 		If Pergunte("REPLAA16", .T., "Consultar Saldos por Lote")
 			If (Alltrim(MV_PAR01) $ cFilEst)
-				cFilBkp := cFilAnt
+				cFilBkp := FWCodFil()
 				cFilAnt := MV_PAR01
 
 				//-- Consultar Saldos por Lote
@@ -193,7 +193,7 @@ Static Function GetColsBrw()
 	
 	cCpoAux := "B2_QATU"
 	For nZ := 1 To Len(aFilEst)
-		aSM0Data := FWSM0Util():getSM0Data(cEmpAnt, aFilEst[nZ], {"M0_FILIAL"})
+		aSM0Data := FWSM0Util():getSM0Data(FWCodEmp(), aFilEst[nZ], {"M0_FILIAL"})
 	
 		//-- Carrega as colunas das filiais
 		aAdd(aStruct, {"EST_" + aFilEst[nZ], AllTrim(aSM0Data[01, 02]), GetSX3Cache(cCpoAux, "X3_TIPO"), GetSX3Cache(cCpoAux, "X3_PICTURE"), GetSX3Cache(cCpoAux, "X3_TAMANHO"), GetSX3Cache(cCpoAux, "X3_DECIMAL"), "", 210})

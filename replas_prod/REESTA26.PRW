@@ -848,7 +848,7 @@ Return
 User Function RESTA26V()
     Local cQuery  := ""
     Local aList   := {}
-    Local cFilAtu := cFilAnt
+    Local cFilAtu := FWCodFil()
     Local lOk     := .F.
     Local oDlg    := Nil
     Local oOK     := LoadBitmap(GetResources(),'LBOK')

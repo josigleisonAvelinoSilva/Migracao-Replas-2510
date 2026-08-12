@@ -18,7 +18,7 @@ Rotina que Processa as transferencias entre filiais da Replas
 @obs Projeto Novo PCP
 /*/
 User Function REESTA02(aDadosTransf, aParam310, aSeries, aNotasTransf) //-- A310Proc
-	Local cFilOri     := cFilAnt //-- Variavel com a filial origem
+	Local cFilOri     := FWCodFil() //-- Variavel com a filial origem
 	Local aParam460   := Array(30) //- Array com os parametros do programa
 	Local cPedido     := ""
 	Local cWhile      := ""
@@ -685,7 +685,7 @@ Retorna a UF do Fornecedor da Filial Destino
 Static Function GetUF(aDadosTransf, lTerceiros) //-- M310GetUF
 	Local aArea		:= GetArea()
 	Local aAreaSA2	:= SA2->(GetArea())
-	Local cFilAux	:= cFilAnt
+	Local cFilAux	:= FWCodFil()
 	Local cUF		:= ""
 
 	cFilAnt := aDadosTransf[06]

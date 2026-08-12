@@ -12,7 +12,7 @@ User Function MTA650MNU()
     //Local cFilOrig := GetMV( "RE_FILORIG", .F., "0302" )
     Local cFilDest := GetMV( "RE_FILDEST", .F., "0201" )
 
-    If cFilAnt $ cFilDest
+    If FWCodFil() $ cFilDest
         aAdd( aRotina, { "Relatorio OP", "U_REPCPR02()", 0 , 3, 0, Nil } ) 
         aAdd( aRotina, { "Imp.Etiq.Retorno", "U_fImpEtqRet(  SC2->C2_NUM + SC2->C2_ITEM + SC2->C2_SEQUEN )", 0 , 3, 0, Nil } ) 
     EndIf

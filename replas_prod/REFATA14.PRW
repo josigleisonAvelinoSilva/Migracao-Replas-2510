@@ -85,7 +85,7 @@ Função para criar Produtos x Codigo de valores declaratórios
 /*/
 Static Function CriaF3K(jDados, cMsgErro)
 	Local oModel    := Nil
-    Local cFilBak   := cFilAnt
+    Local cFilBak   := FWCodFil()
     Local aErro		:= {}
     Local lRet		:= .F.
 

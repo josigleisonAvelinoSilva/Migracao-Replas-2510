@@ -344,6 +344,8 @@ Local lFValAcess	:= ExistFunc('FValAcess')
 Local xCnt01		:= CTOD("  /  /  ")
 Local lDvc			:= oReport:nDevice == 4
 Local cMvMoeda		:= SuperGetMv("MV_MOEDA",,"")
+Local cCodEmp       := FWCodEmp()
+Local cCodFil		:= FWCodFil()
 
 Private cTitulo		:= ""
 Private dBaixa		:= dDataBase
@@ -374,15 +376,15 @@ If MV_PAR42 == 1
 		AdmSelecFil("RELRP05",42,.F.,@aSelFil,"SE1",.F.)
 	Endif
 Else
-	Aadd(aSelFil,cFilAnt)
+	Aadd(aSelFil,cCodFil)
 Endif
 
 If !Empty(aSelFil) .and. mv_par42 = 1
 	If len(aSelFil) > 1			
 		nI := 1							
-		If ascan(aSelFil, cFilAnt) != 0 .and. aSelFil[nI] !=  cFilAnt	
-			aSelFil[ascan(aSelFil, cFilAnt)] := aSelFil[nI]
-			aSelFil[nI] := cFilAnt	
+		If ascan(aSelFil, cCodFil) != 0 .and. aSelFil[nI] !=  cCodFil	
+			aSelFil[ascan(aSelFil, cCodFil)] := aSelFil[nI]
+			aSelFil[nI] := cCodFil	
 		EndIf				
 	EndIf	
 EndIf
@@ -553,7 +555,7 @@ Else
 Endif
 
 dbSelectArea("SM0")
-dbSeek(cEmpAnt+cFilDe,.T.)
+dbSeek(cCodEmp+cFilDe,.T.)
 
 nRegSM0 := SM0->(Recno())
 nAtuSM0 := SM0->(Recno())
@@ -569,7 +571,7 @@ GESTAO - inicio */
 If nLenSelFil == 0
 	// Cria vetor com os codigos das filiais da empresa corrente
 	aFiliais := FinRetFil()
-	lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cEmpAnt .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
+	lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cCodEmp .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
 Else
 	aFiliais := Aclone(aSelFil)
 	cFilDe := aSelFil[1]
@@ -614,7 +616,7 @@ While lContinua
 	
 	If nLenSelFil > 0 .and. len(aAux) > 0
 		dbSelectArea("SM0")
-		dbSeek(cEmpAnt+cFilAnt,.T.)
+		dbSeek(cCodEmp+cCodFil,.T.)
 		RestArea(aAux)
 	EndIf	
 	/* GESTAO - fim
@@ -636,7 +638,7 @@ While lContinua
 		If nLenSelFil == 0
 			dbSelectArea("SM0")
 			SM0->(DbSkip())
-			lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cEmpAnt .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
+			lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cCodEmp .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
 		Else
 			nFilAtu++
 			lContinua := (nFilAtu <= nLenSelFil)
@@ -1156,8 +1158,8 @@ While lContinua
 			nTot4 += nTotFil4
 			nTotJ += nTotFilJ
 			nTotTit += nTotFilTit
-			cNomFil := cFilAnt + " - " + AllTrim(SM0->M0_FILIAL)
-			cNomEmp := Substr(cFilAnt,1,nTamEmp) + " - " + AllTrim(SM0->M0_NOMECOM)
+			cNomFil := cCodFil + " - " + AllTrim(SM0->M0_FILIAL)
+			cNomEmp := Substr(cCodFil,1,nTamEmp) + " - " + AllTrim(SM0->M0_NOMECOM)
 			cTitulo := cTitBkp
 		Endif
 		/* GESTAO - fim
@@ -1173,7 +1175,7 @@ While lContinua
 		If nLenSelFil == 0
 			dbSelectArea("SM0")
 			dbSkip()
-			lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cEmpAnt .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
+			lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cCodEmp .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
 		Else
 			nFilAtu++
 			lContinua := (nFilAtu <= nLenSelFil)
@@ -1817,8 +1819,8 @@ While lContinua
 	If nTotFil0 <> 0
 		nTotFil := Iif(nTotFil2>0,nTotFil2+nTotFil3,nTotFil3)  //Iif(mv_par33 == 23, nTotFil0, nTotFil2+nTotFil3)	
 		nTotEmp += nTotFil
-		cNomFil := cFilAnt + " - " + AllTrim(SM0->M0_FILIAL)
-		cNomEmp := Substr(cFilAnt,1,nTamEmp) + " - " + AllTrim(SM0->M0_NOMECOM)
+		cNomFil := cCodFil + " - " + AllTrim(SM0->M0_FILIAL)
+		cNomEmp := Substr(cCodFil,1,nTamEmp) + " - " + AllTrim(SM0->M0_NOMECOM)
 	EndIf
 
 	If mv_par19 == 2 //1= Analitico   2 = Sintetico
@@ -1854,7 +1856,7 @@ While lContinua
 	If nLenSelFil == 0
 		dbSelectArea("SM0")
 		dbSkip()
-		lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cEmpAnt .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
+		lContinua := SM0->(!Eof()) .And. SM0->M0_CODIGO == cCodEmp .and. IIf( lFWCodFil, FWGETCODFILIAL, SM0->M0_CODFIL ) <= cFilAte
 	Else
 		nFilAtu++
 		lContinua := (nFilAtu <= nLenSelFil)
@@ -1935,22 +1937,22 @@ Local cCarteira	:= ""
 
 If nOrdem = 1
 	//mv_par29 - Imprime Nome?
-	cQuebra := If(mv_par29 == 1,Substr(SA1->A1_NREDUZ,1,30),Substr(SA1->A1_NOME,1,30)) + " " + STR0054 + Right(cCarAnt,2)+Iif(mv_par21==1,STR0055+cFilAnt + " - " + Alltrim(SM0->M0_FILIAL),"")//"Loja - "###" Filial - "
+	cQuebra := If(mv_par29 == 1,Substr(SA1->A1_NREDUZ,1,30),Substr(SA1->A1_NOME,1,30)) + " " + STR0054 + Right(cCarAnt,2)+Iif(mv_par21==1,STR0055+cCodFil + " - " + Alltrim(SM0->M0_FILIAL),"")//"Loja - "###" Filial - "
 Elseif nOrdem == 4 .or. nOrdem == 6
-	cQuebra := PadR(STR0037,28) + DtoC(cCarAnt) + "  " + If(mv_par21==1,cFilAnt+ " - " + Alltrim(SM0->M0_FILIAL),"  ")
+	cQuebra := PadR(STR0037,28) + DtoC(cCarAnt) + "  " + If(mv_par21==1,cCodFil+ " - " + Alltrim(SM0->M0_FILIAL),"  ")
 Elseif nOrdem = 3
-	cQuebra := PadR(STR0037,28) + If(Empty(SA6->A6_NREDUZ),STR0029,SA6->A6_NREDUZ) + " " + If(mv_par21==1,cFilAnt+ " - " + Alltrim(SM0->M0_FILIAL),"")
+	cQuebra := PadR(STR0037,28) + If(Empty(SA6->A6_NREDUZ),STR0029,SA6->A6_NREDUZ) + " " + If(mv_par21==1,cCodFil+ " - " + Alltrim(SM0->M0_FILIAL),"")
 ElseIf nOrdem == 5 //por Natureza
 	SED->( dbSetOrder( 1 ) )
 	SED->( dbSeek(cFilial+cCarAnt) )
-	cQuebra := PadR(STR0037,28) + cCarAnt + " "+Substr(SED->ED_DESCRIC,1,40) + " " + If(mv_par21==1,cFilAnt+ " - " + Alltrim(SM0->M0_FILIAL),"")
+	cQuebra := PadR(STR0037,28) + cCarAnt + " "+Substr(SED->ED_DESCRIC,1,40) + " " + If(mv_par21==1,cCodFil+ " - " + Alltrim(SM0->M0_FILIAL),"")
 Elseif nOrdem == 7
-	cQuebra := PadR(STR0037,28) + SubStr(cCarAnt,7,2)+"/"+SubStr(cCarAnt,5,2)+"/"+SubStr(cCarAnt,3,2)+" - "+SubStr(cCarAnt,9,3) + " " +Iif(mv_par21==1,cFilAnt+ " - " + Alltrim(SM0->M0_FILIAL),"")
+	cQuebra := PadR(STR0037,28) + SubStr(cCarAnt,7,2)+"/"+SubStr(cCarAnt,5,2)+"/"+SubStr(cCarAnt,3,2)+" - "+SubStr(cCarAnt,9,3) + " " +Iif(mv_par21==1,cCodFil+ " - " + Alltrim(SM0->M0_FILIAL),"")
 ElseIf nOrdem = 8
-   	cQuebra := SA1->A1_COD+" "+Substr(SA1->A1_NOME,1,30) + " " + Iif(mv_par21==1,cFilAnt+ " - " + Alltrim(SM0->M0_FILIAL),"")
+   	cQuebra := SA1->A1_COD+" "+Substr(SA1->A1_NOME,1,30) + " " + Iif(mv_par21==1,cCodFil+ " - " + Alltrim(SM0->M0_FILIAL),"")
 ElseIf nOrdem = 9
 	cCarteira := Situcob(cCarAnt)
-	cQuebra := SA6->A6_COD+" "+SA6->A6_NREDUZ + " "+SubStr(cCarteira,3,20) + " " + Iif(mv_par21==1,cFilAnt + " - " + Alltrim(SM0->M0_FILIAL),"")
+	cQuebra := SA6->A6_COD+" "+SA6->A6_NREDUZ + " "+SubStr(cCarteira,3,20) + " " + Iif(mv_par21==1,cCodFil + " - " + Alltrim(SM0->M0_FILIAL),"")
 Endif
 
 if !lImpSintTbl
@@ -2019,7 +2021,7 @@ STATIC Function IFil130R(nTotFil0,nTotFil1,nTotFil2,nTotFil3,nTotFil4,nTotFilTit
 
 HabiCel(oReport)
 
-oSection:Cell("QUEBRA"   ):SetBlock({|| STR0043 + " " + If(mv_par21==1,cFilAnt+" - " + AllTrim(SM0->M0_FILIAL),"")})  //"T O T A L   F I L I A L ----> "
+oSection:Cell("QUEBRA"   ):SetBlock({|| STR0043 + " " + If(mv_par21==1,FWCodFil()+" - " + AllTrim(SM0->M0_FILIAL),"")})  //"T O T A L   F I L I A L ----> "
 oSection:Cell("TOT_NOMI" ):SetBlock({|| nTotFil1})
 oSection:Cell("TOT_CORR" ):SetBlock({|| nTotFil2})
 oSection:Cell("TOT_VENC" ):SetBlock({|| nTotFil3})
@@ -2174,7 +2176,7 @@ Static Function FR130RetNat( cCodNat )
 SED->( dbSetOrder( 1 ) )
 SED->( MsSeek( xFilial("SED") + cCodNat ) )
 
-Return( MascNat(SED->ED_CODIGO) + " - " + SED->ED_DESCRIC + If( mv_par21==1, cFilAnt + " - " + Alltrim(SM0->M0_FILIAL), "" ) )
+Return( MascNat(SED->ED_CODIGO) + " - " + SED->ED_DESCRIC + If( mv_par21==1, FWCodFil() + " - " + Alltrim(SM0->M0_FILIAL), "" ) )
 
 
 /*
@@ -2214,7 +2216,7 @@ Case !Empty(SE1->E1_BAIXA)
 		ElseIf !(cDBType $ "DB2|POSTGRES") .AND. ( ( MV_PAR37 == 2 ) .Or. ( MV_PAR37 == 3 ) ) .AND. !(SE1->E1_TIPO $ MVABATIM)
 			If cAliasProc == NIL
 				cAliasProc	:= CriaTrab(Nil,.F.)
-				cAliasProc:= cAliasProc+"_FR130_"+cEmpAnt
+				cAliasProc:= cAliasProc+"_FR130_"+FWCodEmp()
 				If TCSPExist( cAliasProc ) .And. !lProcCriad
 					DelProc(cAliasProc)					
 				EndIf				

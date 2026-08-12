@@ -264,7 +264,7 @@ Static Function LinhaOk(oModelNNT) //-- A311LinOk
 	Local lLocalizO	 := .F.
 	Local lLocalizD	 := .F.
 	Local lSaldoSemR := Nil
-	Local cFilBkp	 := cFilAnt
+	Local cFilBkp	 := FWCodFil()
 	Local cCodNNT	 := oModelNNT:GetValue( "NNT_COD" )
 	Local cProduto	 := oModelNNT:GetValue( "NNT_PROD" )
 	Local cProdDes	 := oModelNNT:GetValue( "NNT_PRODD" )
@@ -302,7 +302,7 @@ Static Function LinhaOk(oModelNNT) //-- A311LinOk
 	Posicao 02: Filial  Ex( D MG 01 )
 	Posicao 11: Perm. Acesso .T. / .F. Ex( .F. )*/
 	If Ascan( aSM0, { | x | AllTrim( x[01] ) == AllTrim( cGrEmp ) .And. AllTrim( x[02] ) == AllTrim( cFilDest ) .And. !( x[11] ) } ) > 0
-		cMsg := "O usuário " + AllTrim( UsrFullName( __cUserID ) ) + " não possui permissão para utilizar a Filial " + AllTrim( cFilDest )
+		cMsg := "O usuário " + AllTrim( UsrFullName( RetCodUsr() ) ) + " não possui permissão para utilizar a Filial " + AllTrim( cFilDest )
 		Help( " ", 1, "A310PERMFIL", Nil, cMsg, 1, 0 )
 		lRet := .F.
 	EndIf
@@ -520,7 +520,7 @@ Static Function PosValid(oModel) //-- MAT311PVld
 	For nX := 1 To oModelNNT:Length()
 		oModelNNT:GoLine( nX )
 		If !oModelNNT:IsDeleted()
-			If cFilAnt # oModelNNT:GetValue( "NNT_FILDES" )
+			If FWCodFil() # oModelNNT:GetValue( "NNT_FILDES" )
 				aAdd( aFilDes, oModelNNT:GetValue( "NNT_FILDES" ) )
 
 				//-- Verifica se os campos NNT_TS e NNT_TE foram preenchidos
@@ -838,6 +838,7 @@ Static Function ExecTransf(oModel) //-- A311Transf
 	Local cSerie 	:= ""
 	Local cEspecie	:= Nil
 	Local cTpNrFfs	:= GetMv( "MV_TPNRNFS" )
+	Local cCodFil		:= FWCodFil()
 
 	Private cNumero	:= ""
 
@@ -860,17 +861,17 @@ Static Function ExecTransf(oModel) //-- A311Transf
 					cNumero := "000001"
 					//cNumero := Ma461NumNf( Nil, cSerie, cNumero ) //-- lFirst, cSerie, cNumNFs, lECF, cSerieId
 				Else
-					SX5NumNota( @cSerie, cTpNrFfs, cFilAnt ) //-- cSerNF,cTpNrNfs,cFilTela,cTab,cAliTp,cSerieId,dDEmissao
+					SX5NumNota( @cSerie, cTpNrFfs, cCodFil ) //-- cSerNF,cTpNrNfs,cFilTela,cTab,cAliTp,cSerieId,dDEmissao
 				EndIf
 
 				//-- Caso tenha selecionado numero
 				If Empty(cNumero)
 					//-- A filial XX nao teve uma serie de nota fiscal de saida selecionada para geracao
-					Help( " ", 1, "A310SERERR", , cFilAnt, 1, 10 )
+					Help( " ", 1, "A310SERERR", , cCodFil, 1, 10 )
 					lRet :=.F.
 					Exit
 				Else
-					aAdd( aSeries, { cFilAnt, cSerie, cNumero } )
+					aAdd( aSeries, { cCodFil, cSerie, cNumero } )
 				EndIf
 			EndIf
 		Next nX
@@ -1161,7 +1162,7 @@ Static Function RepTES() //-- A311RepTES
 		For nX := 1 To oModelNNT:Length()
 			oModelNNT:GoLine( nX )
 			If !oModelNNT:IsDeleted()
-				If cFilAnt # oModelNNT:GetValue( "NNT_FILDES" )
+				If FWCodFil() # oModelNNT:GetValue( "NNT_FILDES" )
 					If !Empty( "MV_PAR02" )
 						If Empty( MV_PAR01 )
 							oModelNNT:SetValue( "NNT_TS", MV_PAR02 )
@@ -1476,6 +1477,7 @@ Static Function fVldSB8( cAlias )
  
 	local cTSaida := ""
 	local cTEntra := ""
+	Local cCodUsr := RetCodUsr()
 	
 	cTSaida  := MV_PAR03
 	cTEntra  := MV_PAR04
@@ -1498,7 +1500,7 @@ Static Function fVldSB8( cAlias )
 						   MV_PAR02 }       )     //-- 10 - Filial de Destino --
 
 			If Len(aItens) >= 99
-				axRet := IncxTrasf(aItens, __cUserId, cTSaida, cTEntra)
+				axRet := IncxTrasf(aItens, cCodUsr, cTSaida, cTEntra)
 				aItens  := {}
 				nTotSol++
 			EndIf
@@ -1508,7 +1510,7 @@ Static Function fVldSB8( cAlias )
 
    	If !Empty(aItens)
    	 	nTotSol++
-       	axRet := IncxTrasf(aItens, __cUserId, cTSaida, cTEntra)
+       	axRet := IncxTrasf(aItens, cCodUsr, cTSaida, cTEntra)
    	EndIf
 
 	cMsgFim := ""
@@ -1588,7 +1590,7 @@ Static Function IncxTrasf(aItens, cXUserID, cTSaida, cTEntra)
         EndIf
 
         //-- Itens da solicitacao, origem
-        oModel:SetValue( "NNTDETAIL", "NNT_FILORI"  , cFilAnt )
+        oModel:SetValue( "NNTDETAIL", "NNT_FILORI"  , FWCodFil() )
         oModel:SetValue( "NNTDETAIL", "NNT_PROD"    , aItens[nX, 01] )
         oModel:SetValue( "NNTDETAIL", "NNT_LOCAL"   , aItens[nX, 03] )
         oModel:SetValue( "NNTDETAIL", "NNT_QUANT"   , aItens[nX, 08] )
@@ -1702,7 +1704,7 @@ Static Function LoadCopia(oModel, oModelNNS, oModelNNT)
 			EndIf
 		EndIf
 
-		//oModelNNT:SetValue( "NNT_FILORI", cFilAnt )
+		//oModelNNT:SetValue( "NNT_FILORI", FWCodFil() )
 		oModelNNT:SetValue( "NNT_PROD", NNT->NNT_PROD )
 		oModelNNT:SetValue( "NNT_LOCAL", NNT->NNT_LOCLD )
 
@@ -1757,7 +1759,7 @@ Static Function CriaSldIni(cFilDes, cProdDes, cArmDes)
     Local aAreaAnt := GetArea()
     Local aAreaSB9 := SB9->(GetArea())
 	Local aVetor   := {}
-	Local cFilBak  := cFilAnt
+	Local cFilBak  := FWCodFil()
 
 	lMsErroAuto := .F.
 
@@ -1769,7 +1771,7 @@ Static Function CriaSldIni(cFilDes, cProdDes, cArmDes)
 	cArmDes  := PadR(cArmDes, Len(SB9->B9_LOCAL))
 	cFilAnt  := cFilDes
 
-	aAdd(aVetor, {"B9_FILIAL", cFilAnt , Nil})
+	aAdd(aVetor, {"B9_FILIAL", FWCodFil() , Nil})
 	aAdd(aVetor, {"B9_COD"   , cProdDes, Nil})
 	aAdd(aVetor, {"B9_LOCAL" , cArmDes, Nil})
 	aAdd(aVetor, {"B9_QINI"  , 0       , Nil})

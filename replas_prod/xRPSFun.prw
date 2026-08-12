@@ -17,6 +17,7 @@ Local cVldReser := GetNewPar("MV_XVLDRES","S")
 Local lVldMotor	:= .T.
 Local cVldForMot:= GetNewPar("MV_XVLDFOR","")
 Local cFilResev := GetMv( "RE_FILRSV", .F., "0101/0102/0103/0302/" ) //-- Filiais que teram a inclusao de Reservas. by Dener Lemos
+Local cCodFil	:= FWCodFil()
 
 If IsInCallStack("U_REESTA02")
 	Return
@@ -81,7 +82,7 @@ If !Empty(SC5->C5_BANCO) .And. SC5->C5_CONDPAG <> "001"
 EndIf
   
 //PONTO DE ENTRADA - JOSE CARLOS_________[TOTVS]
-If ExistBlock('RPMONTABOR') .and. cFilAnt == "0101"
+If ExistBlock('RPMONTABOR') .and. cCodFil == "0101"
 	ExecBlock('RPMONTABOR')
 EndIf 
 
@@ -101,7 +102,7 @@ If ExistBlock('RPEXECPE') .And. GetMV('RP_XMOTOR',.F.,.T.)
 	EndIf
 EndIf 
 
-If cFilAnt $ cFilResev .and. cVldReser == "S"
+If cCodFil $ cFilResev .and. cVldReser == "S"
 	For nI:=1 to len(aPedido)
 		FwMsgRun(, {|| u_xValdRes(aPedido[nI]) }, , 'Validando Reserva, aguarde...')
 	Next
@@ -120,9 +121,10 @@ Local cSql	:= ""
 Local cFilOrig  := GetMV( "RE_FILORIG", .F., "0302" )
 Local cFilDest  := GetMV( "RE_FILDEST", .F., "0201" )
 Local lIntIndMM := GetMV( "RE_INTIND", .F., .T. ) //-- Parametro geral que indica se a integracao de pedidos com a industria mm (Filial 0201) esta ativa
+Local cCodFil	:= FWCodFil()
 
-If ( lIntIndMM .And. cFilAnt == cFilDest ) .Or.;
-   ( lIntIndMM .And. cFilAnt == cFilOrig .And. IsInCallStack("U_REFATA06") )
+If ( lIntIndMM .And. cCodFil == cFilDest ) .Or.;
+   ( lIntIndMM .And. cCodFil == cFilOrig .And. IsInCallStack("U_REFATA06") )
 
 	Return
 EndIf
@@ -166,7 +168,7 @@ User Function A250ETRAN()
 	Local cFilDest  := GetMV( "RE_FILDEST", .F., "0201" )
 	Local lIntIndMM := GetMV( "RE_INTIND", .F., .T. ) //-- Parametro geral que indica se a integracao de pedidos com a industria mm (Filial 0201) esta ativa
 
-	If lIntIndMM .And. cFilAnt == cFilDest 
+	If lIntIndMM .And. FWCodFil() == cFilDest 
 		If Empty(SC2->C2_XFILORI) .Or. Empty(SC2->C2_XPVORIG) .Or. Empty(SC2->C2_PEDIDO) .Or. Empty(SC2->C2_ITEMPV)
 			dbSelectArea("SC5")
 			SC5->(dbSetOrder(1))
@@ -261,7 +263,7 @@ If IsInCallStack("U_REESTA02") .Or.;
 EndIf
 
 //-- Verifica se existem produtos do tipo Filme na documento de entrada
-If cFilAnt == cFilOrig .And. U_REFATA02( 5, SF1->( F1_DOC + F1_SERIE ) ) .And. (nOpcao == 3 .or. nOpcao == 4) .And. nConfirma == 1
+If FWCodFil() == cFilOrig .And. U_REFATA02( 5, SF1->( F1_DOC + F1_SERIE ) ) .And. (nOpcao == 3 .or. nOpcao == 4) .And. nConfirma == 1
 	aAreaSD1 := SD1->( GetArea() )
 
 	DbSelectArea("SD1")

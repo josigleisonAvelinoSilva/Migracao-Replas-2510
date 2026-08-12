@@ -154,7 +154,7 @@ User Function REPLAA18()
         (cAliasTRB)->(dbCloseArea())
     EndIf
 
-    //StartJob("U_RPLAA18A", GetEnvServer(), .F., cEmpAnt, cFilAnt)
+    //StartJob("U_RPLAA18A", GetEnvServer(), .F., FWCodEmp(), FWCodFil())
 
     RestArea(aAreaAnt)
 

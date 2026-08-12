@@ -1374,6 +1374,7 @@ Local _lOnlyEdit := SZY->ZY_SEQ     == _cJob
 Local _nOpcAlt   := 1
 Local _nJ
 lOCAL _aFormula  := {'',''} 
+Local cFilDest := GetMV( "RE_FILDEST", .F., "0201" )
 
 Local cQuery := ''
 Local aInfAdic := {}
@@ -1531,7 +1532,7 @@ For _nJ:=1 To Len(_aEstoque)
 
 	// "Suspensão do ICMS nos termos do Art.402 Dec. Nº 45490/00 e suspensão do IPI nos termos do "
 	// "Art.43.VII-Dec.7212/10 e destacar a que NFE se refere ao Retorno"
-	Elseif SZY->ZY_TIPODOC == 'N' .AND. SB1->B1_TIPO == 'MP' .AND. cFilAnt == '0201'
+	Elseif SZY->ZY_TIPODOC == 'N' .AND. SB1->B1_TIPO == 'MP' .AND. cFilAnt == cFilDest
 		cQuery := "SELECT TOP 1 D1_DOC, D1_SERIE, D1_ITEM "
 		cQuery += "  FROM "+RetSQLName("SD1")+" SD1 "
 		cQuery += " WHERE D1_FILIAL = "+ValToSql(xFilial("SD1"))+" "

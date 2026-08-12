@@ -8,7 +8,7 @@
 User Function REPLA960()
     Local cMsg := ''
 
-    If cFilAnt=="0201"
+    If FWCodFil() == "0201"
         If SA1->A1_COD == '14555032' .AND. SA1->A1_LOJA == '0003'
             cMsg := "Suspenção do ICMS nos termos do Art.402 Dec.Nº45490/00 e "
             cMsg += "suspenção do IPI nos termos do Art.43.VII-Dec.7212/10 ref NF/Série:"+GetNFOrig()+" "

@@ -71,6 +71,7 @@ Static Function xGrvInve( nQtdRegs )
 	local cMsg     := ""
     local lotes    := {}	
     local cFilOrig := GetMV( "RE_FILORIG", .F., "0302" )
+	Local cCodFil	:= FWCodFil()
 
 	cFilAnt := cFilOrig
 
@@ -122,13 +123,13 @@ Static Function xGrvInve( nQtdRegs )
 
 		If lGrvSZ7 
 
-			If !SB2->(DbSeek( cFilAnt + SZ7->Z7_COD + SZ7->Z7_LOCAL ))
-				CriaSB2( SZ7->Z7_COD, SZ7->Z7_LOCAL , cFilAnt )	
+			If !SB2->(DbSeek( cCodFil + SZ7->Z7_COD + SZ7->Z7_LOCAL ))
+				CriaSB2( SZ7->Z7_COD, SZ7->Z7_LOCAL , cCodFil )	
 			EndIf
             //-- Ação necessária para possível gravação dos Lotes de Inventário - Base TesteAmbiente de Homologação
 			//-- Analisar necessidade de efetivar essa ação em Base de Produção.
             /*
-			If SB2->( dbSeek( cFilAnt + SZ7->Z7_COD + SZ7->Z7_LOCAL  ))
+			If SB2->( dbSeek( cCodFil + SZ7->Z7_COD + SZ7->Z7_LOCAL  ))
 			   SB2->( RecLock( "SB2" , .F. ))
 			   SB2->B2_QEMP    := 0 
 			   SB2->B2_RESERVA := 0
@@ -141,7 +142,7 @@ Static Function xGrvInve( nQtdRegs )
 			//aadd( lotes, {"D5_FILIAL"  , SZ7->Z7_FILIAL  , nil})
 			//aadd( lotes, {"D5_FILIAL"  , SZ7->Z7_FILIAL  , nil})
 			//aadd( lotes, {"D5_FILIAL"  , cFilOrig        , nil})
-			aadd( lotes, {"D5_FILIAL"  , cFilAnt         , nil})
+			aadd( lotes, {"D5_FILIAL"  , cCodFil         , nil})
 			aadd( lotes, {"D5_PRODUTO" , SZ7->Z7_COD , nil})
 			aadd( lotes, {"D5_LOCAL"   , SZ7->Z7_LOCAL   , nil})
 			aadd( lotes, {"D5_LOTECTL" , SZ7->Z7_LOTECTL , nil})
@@ -251,7 +252,7 @@ User Function XGRVSZ7()
 			cFilAnt := cFilOrig
 			//aadd( lotes, {"D5_FILIAL"  , SZ7->Z7_FILIAL  , nil})
 			//aadd( lotes, {"D5_FILIAL"  , cFilOrig        , nil})
-			aadd( lotes, {"D5_FILIAL"  , cFilAnt         , nil})
+			aadd( lotes, {"D5_FILIAL"  , FWCodFil()         , nil})
 			aadd( lotes, {"D5_PRODUTO" , SZ7->Z7_COD     , nil})
 			aadd( lotes, {"D5_LOCAL"   , SZ7->Z7_LOCAL   , nil})
 			aadd( lotes, {"D5_LOTECTL" , SZ7->Z7_LOTECTL , nil})

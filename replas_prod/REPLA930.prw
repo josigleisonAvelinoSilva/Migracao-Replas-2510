@@ -32,10 +32,11 @@ User Function REPLA930()
 	Local nImp5   := 0
 	Local nImp6   := 0
 	Local nSumImp := 0
+	Local cCodFil	:= FWCodFil()
 	
 	aArea := GetArea()
 
-	If cFilAnt=='0102' .And. ( M->C5_CLIENTE + M->C5_LOJACLI $ "145550320003;" ) //.AND. lCliente
+	If cCodFil=='0102' .And. ( M->C5_CLIENTE + M->C5_LOJACLI $ "145550320003;" ) //.AND. lCliente
 		cC6_PRODUTO := aCOLS[n,GdFieldPos('C6_PRODUTO')]
 
 		nB2_CM1 := SB2->(Posicione('SB2',1,xFilial('SB2')+cC6_PRODUTO+'02','B2_CM1'))
@@ -44,7 +45,7 @@ User Function REPLA930()
 		cSQL += "  FROM "+RetSqlName("SD1")+" RTCUSTO "
 		cSQL += " WHERE RTCUSTO.R_E_C_N_O_ = ( SELECT MAX( SD1.R_E_C_N_O_ ) AS D1_RECNO "
 		cSQL += "								FROM "+RetSqlName("SD1")+" SD1 "
-		cSQL += "							WHERE SD1.D1_FILIAL = "+ValToSql(cFilAnt)+" "
+		cSQL += "							WHERE SD1.D1_FILIAL = "+ValToSql(cCodFil)+" "
 		cSQL += "									AND SD1.D1_COD = "+ValToSql(cC6_PRODUTO)+" "
 		cSQL += "									AND SD1.D_E_L_E_T_ = ' ' ) "
 
@@ -59,7 +60,7 @@ User Function REPLA930()
 		Else
 			nRet := nB2_CM1
 		Endif
-	ElseIf cFilAnt = "0103" .And. ( M->C5_CLIENTE + M->C5_LOJACLI $ "092600110002;" ) .And. !Empty( aCOLS[n, GdFieldPos( "C6_PRODUTO" )] )
+	ElseIf cCodFil = "0103" .And. ( M->C5_CLIENTE + M->C5_LOJACLI $ "092600110002;" ) .And. !Empty( aCOLS[n, GdFieldPos( "C6_PRODUTO" )] )
 		cC6_PRODUTO := aCOLS[n, GdFieldPos( "C6_PRODUTO" )]		
 		cXGrupo     := Posicione( "SB1", 1, xFilial("SB1") + cC6_PRODUTO + "01", "B1_XGRUPO" ) //-- 0=Outros; 1=Filme; 2=Resina Nacional; 3=Resina Importada
 		nB2_CM1     := Posicione( "SB2", 1, xFilial("SB2") + cC6_PRODUTO + "01", "B2_CM1" )

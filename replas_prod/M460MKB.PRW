@@ -9,7 +9,7 @@ user function M460MKB()
 	Local cFilOrig := GetMV("RE_FILORIG", .F., "0302")
 	
 	//Caso não esteja no motor valida pedido
-	If cFilAnt $ "0103/" + cFilOrig .and. !IsinCallStack("U_XRLSMOTOR")
+	If FWCodFil() $ "0103/" + cFilOrig .and. !IsinCallStack("U_XRLSMOTOR")
 		cCondRet := "u_fvldped(SC9->C9_PEDIDO)"
 	EndIf
 	

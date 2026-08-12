@@ -353,7 +353,7 @@ DBUSEAREA(.t.,,carq,"TTM0")
 /*DbSelectArea("SM0")
 SM0->(DBGOTOP())
 do While  SM0->(!Eof())
-	IF SM0->(M0_CODIGO) == cempant // SOMENTE ADICIONA DA MESMA EMPRESA
+	IF SM0->(M0_CODIGO) == FWCodEmp() // SOMENTE ADICIONA DA MESMA EMPRESA
 		DbSelectArea("TTM0")	
 		RecLock("TTM0",.T.)		
 			TTM0->M0_CODIGO   	  :=  SM0->(M0_CODIGO) //código da empresa

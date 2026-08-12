@@ -50,7 +50,7 @@ If lIntIndMM .And. IsInCallStack( "A410Deleta" )  .And. ;
    SC5->( dbSetOrder(1))
 
    //-- Chama a rotina de Inclusao/Alteracao/Exclusão dos Pedidos de Venda Destino
-   U_REFATA01( { cEmpAnt       ,; //-- Empresa
+   U_REFATA01( { FWCodEmp()       ,; //-- Empresa
                  SC5->C5_FILIAL,; //-- Filial Origem
                  SC5->C5_NUM   ,; //-- Pedido Origem
                  cFilDes       ,; //-- Filial Destino
@@ -76,7 +76,7 @@ If !IsinCallStack("U_XRLSMOTOR") .AND. !SC5->C5_TIPO $ "D,B"
 		Return
 	Else
 		//-- Verifica se Filial é valida para faturamento
-		lFilialFat := cFilAnt $ cFilialFat
+		lFilialFat := FWCodFil() $ cFilialFat
 
 		DbSelectArea("DA1")
 		DbSetOrder(4)	// DA1_FILIAL + DA1_CODTAB + DA1_GRUPO + DA1_INDLOT + DA1_ITEM

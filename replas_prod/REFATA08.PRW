@@ -35,7 +35,7 @@ User Function REFATA08()
     Private cFilOrig  := GetMV("RE_FILORIG", .F., "0302")
 	Private cFilDest  := GetMV("RE_FILDEST", .F., "0201")
 
-	If !(cFilAnt == cFilDest)
+	If !(FWCodFil() == cFilDest)
 		FWAlertError("Somente é permitido acessar o <b>" + cTitulo + "</b> na Filial [<b>" + cFilDest + "</b>].", "Não Permitido!")
 		Return
 	EndIf
@@ -260,7 +260,7 @@ User Function REFATA8A()
 
     If FWAlertYesNo("Confirma a efetivação do Motor Mod.2 da empresa/filial <b>" + cFilDest + "</b> para a empresa/filial <b>" + cFilOrig + "</b>?", "Efetivar " + cPVDest + "-" + cItemPV + "?")
         //-- Habilita semafora da rotina do Motor Mod.2
-        If !LockByName("REFATA06"+cEmpAnt+cFilAnt+cPVDest,.T.,.F.,.T.)
+        If !LockByName("REFATA06"+FWCodEmp()+FWCodFil()+cPVDest,.T.,.F.,.T.)
             FWAlertError("Esse pedido <b>" + cPVDest + "</b> já está sendo efetivado pelo Motor Mod.2.", "Motor Mod.2 em Execução!")
             Return
         EndIf
@@ -269,7 +269,7 @@ User Function REFATA8A()
         MsAguarde({|| U_REFATA06()}, "Efetivando Motor Mod.2", "Efetivando...")
 
         //-- Desabilita semafora da rotina do Motor Mod.2
-        UnLockByName("REFATA06"+cEmpAnt+cFilAnt+cPVDest,.T.,.F.,.T.)
+        UnLockByName("REFATA06"+FWCodEmp()+FWCodFil()+cPVDest,.T.,.F.,.T.)
     EndIf
 
     RestArea(aAreaAnt)
@@ -315,7 +315,7 @@ User Function REFATA8B(cFilOrigem, cPVOrigem)
             SZ8->Z8_QUANT   := SD3->D3_QUANT          //-- Quantidade Produzida
             SZ8->Z8_DTPROD  := dDataBase              //-- Data da Producao
             SZ8->Z8_HRPROD  := SubStr( Time(), 1, 5 ) //-- Hora da Producao
-            SZ8->Z8_USRPROD := __cUserId              //-- Usuario da Producao
+            SZ8->Z8_USRPROD := RetCodUsr()              //-- Usuario da Producao
             SZ8->Z8_FILORI  := cFilOrigem             //-- Filial de Origem
             SZ8->Z8_PVORIG  := cPVOrigem              //-- Pedido de Venda Origem
             SZ8->Z8_CLIORI  := SC5->C5_CLIENTE        //-- Cliente Origem

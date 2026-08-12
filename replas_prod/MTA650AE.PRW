@@ -15,7 +15,7 @@ User Function mta650ae()
     Local lVerExcOP := GetMv( "RE_EXOPPRD",,.T.)  //Ativa Verif. de Exclusão OP    
     Local cFilDest  := GetMV( "RE_FILDEST", .F., "0201" )
 
-    If lVerExcOP .AND. cFilAnt == cFilDest 
+    If lVerExcOP .AND. FWCodFil() == cFilDest 
         dbSelectArea("SC6")
         SC6->(dbSetOrder(1)) //--C6_FILIAL+C6_NUM+C6_ITEM+C6_PRODUTO
 

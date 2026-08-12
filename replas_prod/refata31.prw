@@ -48,7 +48,7 @@ Local _cDesc    := 0
 
 Private aRet 	:= {}
 
-/*If !(cFilAnt == cFilOrig)
+/*If !(FWCodFil() == cFilOrig)
     MsgInfo("Impressao nao permitida nesta filial")
     return
 EndIf*/

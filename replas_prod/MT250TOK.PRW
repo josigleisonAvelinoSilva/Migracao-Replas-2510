@@ -25,7 +25,7 @@ User Function MT250TOK()
 
     SZ9->( dbSetOrder(1))  // --Z9_FILIAL + Z9_OP
 
-    If (lIntIndMM .And. !IsInCallStack("U_REFATA06")) .And. (lAptPerda .And. cFilAnt == cFilDest) .And. SC2->C2_XITOK .And. lRet
+    If (lIntIndMM .And. !IsInCallStack("U_REFATA06")) .And. (lAptPerda .And. FWCodFil() == cFilDest) .And. SC2->C2_XITOK .And. lRet
         If lRet
             //-- Validacao para verificar se a OP ja foi apontada
             lRet := VldJaApto()

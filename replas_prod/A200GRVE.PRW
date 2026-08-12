@@ -15,7 +15,7 @@ User Function A200GRVE()
     Local cFilOrig := GetMV( "RE_FILORIG", .F., "0302" )
     //Local cFilDest := GetMV( "RE_FILDEST", .F., "0201" )
 
-    If ( nOpcX == 3 .Or. nOpcX == 4 ) .And. cFilAnt == cFilOrig .And.;
+    If ( nOpcX == 3 .Or. nOpcX == 4 ) .And. FWCodFil() == cFilOrig .And.;
        U_REFATA02( 1, cProduto ) .And. U_REFATA02( 3, cProduto ) .And.;
        !IsInCallStack( "U_REESTA06" )
 

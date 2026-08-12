@@ -57,7 +57,7 @@ Static Function IncluiPV( cCodEmp, cFilOrig, cPVOrig, cFilDest, cPVDest, nOper )
     Local cCondPag  := GetMv( "RE_CPAGDES", .F., "002" )
     Local cTSRemS   := GetMV( "RE_TSREMS" , .F., "533" ) //-- Tipo de Saida para Remessa para Industrializacao do SERVICO
     Local cCodServ  := GetMV( "RP_CODSERV", .F., "" )
-	Local cFilAtual := cFilAnt //-- Backup da variavel "cFilAnt"
+	Local cFilAtual := FWCodFil() //-- Backup da variavel "cFilAnt"
     Local cFileLog  := ""
     Local cMsg      := ""
     Local nI        := 0
@@ -228,7 +228,7 @@ Static Function AlteraPV( cCodEmp, cFilOrig, cPVOrig, cFilDest, cPVDest, nOper )
     Local aItem     := {}
 	Local cCliDest  := ""
 	Local cLojaDest := ""
-	Local cFilAtual := cFilAnt //-- Backup da variavel "cFilAnt"
+	Local cFilAtual := FWCodFil() //-- Backup da variavel "cFilAnt"
 	Local cTSRemS   := GetMV( "RE_TSREMS" , .F., "533" ) //-- Tipo de Saida para Remessa para Industrializacao do SERVICO
 	Local cCodServ  := GetMV( "RP_CODSERV", .F., "" )
     Local cFileLog  := ""
@@ -447,7 +447,7 @@ Static Function GetCliDest( cEmp, cFil )
 	Local cCGC     := ""
 	Local cEst     := ""
 	
-    Default cEmp := cEmpAnt
+    Default cEmp := FWCodEmp()
 	Default cFil := GetMV( "RE_FILDEST", .F., "0201" )
 
 	DbSelectArea("SA1")

@@ -13,7 +13,7 @@ Rotina de tranmissao de nota fiscal para o SEFAZ
 @return logical, Retorno logico
 /*/
 User Function REFATA07(cNotaFeita, cSerie, cMsg)
-    Local aParamSFZ := { cEmpAnt, cFilAnt, "5", "1", cSerie, cNotaFeita, cNotaFeita }
+    Local aParamSFZ := { FWCodEmp(), FWCodFil(), "5", "1", cSerie, cNotaFeita, cNotaFeita }
     Local lRetSefaz := .F.
 	    Local aArea     := GetArea()
     Local aAreaSF2  := SF2->( GetArea() )
@@ -81,7 +81,7 @@ Static Function SpedNFe6Mnt(cSerie, cNotaIni, cNotaFim, lCTe, lMDFe, cModel, cMs
     Default lMDFe    := .F.
     Default cModel	 := ""
 
-    cParNfeRem := cEmpAnt + cFilAnt + "SPEDNFEREM"
+    cParNfeRem := FWCodEmp() + FWCodFil() + "SPEDNFEREM"
 
     aAdd( aPerg, { 1, "Serie NFS"  , aParam[01], "", ".T.", "", ".T.", 30, .F. } ) //-- Serie da Nota Fiscal
     aAdd( aPerg, { 1, "NFS Inicial", aParam[02], "", ".T.", "", ".T.", 30, .T. } ) //-- Nota Fiscal Inicial

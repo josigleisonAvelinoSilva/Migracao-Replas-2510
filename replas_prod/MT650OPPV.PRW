@@ -16,7 +16,7 @@ User Function MT650OPPV()
     Local lImpOP    := GetMV( "RE_IMPOP", .F., .T. )
     Local lIntIndMM := GetMV( "RE_INTIND", .F., .T. ) //-- Parametro geral que indica se a integracao de pedidos com a industria mm (Filial 0201) esta ativa
 
-    If IsInCallStack("MATA650C") .And. cFilAnt $ cFilDest
+    If IsInCallStack("MATA650C") .And. FWCodFil() $ cFilDest
         If lIntIndMM
             //-- Preenchimento da "Filial" e o "Pedido" origem
             GrvFilPVOri( aPedOP1 )

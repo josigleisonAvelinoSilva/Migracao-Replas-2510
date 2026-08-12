@@ -13,7 +13,7 @@ User Function SD3250E()
     Local cFilDest  := GetMV( "RE_FILDEST", .F., "0201" )
     Local lIntIndMM := GetMV( "RE_INTIND", .F., .T. ) //-- Parametro geral que indica se a integracao de pedidos com a industria mm (Filial 0201) esta ativa
 
-    If lIntIndMM .And. cFilAnt == cFilDest 
+    If lIntIndMM .And. FWCodFil() == cFilDest 
         DbSelectArea("SZ8")
         SZ8->(DbSelectArea(1))
         If SZ8->(DbSeek(xFilial("SZ8") + SC2->(C2_PEDIDO + C2_ITEMPV)))

@@ -12,7 +12,7 @@ User Function REESTA16()
     Local aSays    := {}
     Local aButtons := {}
     Local cPergSX1 := "REESTA16"
-    Local cBkpFil  := cFilAnt
+    Local cBkpFil  := FWCodFil()
     Local lOk      := .F.
 
     Private cEmpFilOri := Space(Len(SB1->B1_FILIAL))

@@ -14,7 +14,7 @@ User Function A650VMNU()
     //Local cFilOrig  := GetMV( "RE_FILORIG", .F., "0302" )
     Local cFilDest  := GetMV( "RE_FILDEST", .F., "0201" )
 
-    If cFilAnt $ cFilDest
+    If FWCodFil() $ cFilDest
         aAdd( aRotina, {"Param. Sugestao Bobinas", "U_REPCPA7P()", 0, 0} )
     EndIf
 

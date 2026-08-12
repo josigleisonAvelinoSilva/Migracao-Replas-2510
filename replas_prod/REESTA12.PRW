@@ -63,7 +63,7 @@ Static Function PosVld(oModel)
 
 	SC2->( dbSetOrder( 1 ))
 
-	cFil 	:=	cFilAnt
+	cFil 	:=	FWCodFil()
     cOP  	:= oModel:GetModel("SZEMASTER"):GetValue("ZE_OP")
 	cItemOP	:= oModel:GetModel("SZEMASTER"):GetValue("ZE_ITEM")  
 

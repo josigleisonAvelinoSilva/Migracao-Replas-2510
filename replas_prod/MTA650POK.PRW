@@ -25,7 +25,7 @@ User Function MTA650POK()
     EndIf
 
     //-- Faz parte no novo processo do PCP
-    If lSgtBob .And. lIntIndMM .And. cFilAnt $ cFilDest .And. aPergSgt[01] == 1  
+    If lSgtBob .And. lIntIndMM .And. FWCodFil() $ cFilDest .And. aPergSgt[01] == 1  
         _lRet := U_REPCPA07(_cAlias, _cMarca, aPergSgt)
     EndIf
 

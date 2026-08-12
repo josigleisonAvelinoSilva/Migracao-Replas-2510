@@ -13,7 +13,7 @@ User Function A410CONS()
 	Local aButtons := {}
 	Local cFilOrig := GetMV("RE_FILORIG", .F., "0302")
 
-	If cFilAnt == cFilOrig .And. (INCLUI .Or. ALTERA)
+	If FWCodFil() == cFilOrig .And. (INCLUI .Or. ALTERA)
 		aAdd(aButtons , {'OMSDIVIDE', {|| U_REPLAA07()}, "*Produto Inteligente - Filme"})
 
 		//-- Rotina que faz o auto preenchimento dos itens da grid com base em solicitacao de transferecia

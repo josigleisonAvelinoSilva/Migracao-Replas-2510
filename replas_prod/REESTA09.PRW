@@ -137,7 +137,7 @@ Static Function GetPrdTrans( cCodPrdDe, cCodPrdAte, cTipo, cTSaida, cTEntra, cFi
 
 
         If Len(aItens) >= 99
-            IncTrasf(aItens, __cUserId, cTSaida, cTEntra)
+            IncTrasf(aItens, RetCodUsr(), cTSaida, cTEntra)
             nTotal  += Len(aItens)
             aItens  := {}
             nTotSol++
@@ -151,7 +151,7 @@ Static Function GetPrdTrans( cCodPrdDe, cCodPrdAte, cTipo, cTSaida, cTEntra, cFi
     If !Empty(aItens)
         MsProcTxt("Analisando registro (" + cValToChar(nAtual) + ")... já processados (" + cValToChar(nTotal) + ")...")
         nTotSol++
-        IncTrasf(aItens, __cUserId, cTSaida, cTEntra)
+        IncTrasf(aItens, RetCodUsr(), cTSaida, cTEntra)
     EndIf
 
     FClose(nHndf)
@@ -215,7 +215,7 @@ Static Function IncTrasf(aItens, cXUserID, cTSaida, cTEntra)
         EndIf
 
         //-- Itens da solicitacao, origem
-        oModel:SetValue( "NNTDETAIL", "NNT_FILORI"  , cFilAnt )
+        oModel:SetValue( "NNTDETAIL", "NNT_FILORI"  , FWCodFil() )
         oModel:SetValue( "NNTDETAIL", "NNT_PROD"    , aItens[nX, 01] )
         oModel:SetValue( "NNTDETAIL", "NNT_LOCAL"   , aItens[nX, 03] )
         oModel:SetValue( "NNTDETAIL", "NNT_QUANT"   , aItens[nX, 08] )

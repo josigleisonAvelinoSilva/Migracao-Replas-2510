@@ -420,7 +420,7 @@ Static Function IncRegistro(aXParam)
         SZ7->Z7_STATUS  := "1" //-- 1=Nao processado;2=Processado
         SZ7->Z7_DTINV   := dDataBase
         SZ7->Z7_HRINV   := SubStr( Time(), 1, 5 )
-        SZ7->Z7_CODUSR  := __cUserId
+        SZ7->Z7_CODUSR  := RetCodUsr()
         SZ7->Z7_CODETI  := cCodEtiq
         SZ7->Z7_GRUPO   := GetAdvFVal("SB1", "B1_GRUPO", xFilial("SB1") + PadR(cCodProd, Len(SB1->B1_COD)), 1, " ")
     SZ7->( MsUnLock() )
@@ -678,7 +678,7 @@ Static Function Registros()
     cQuery += "     SZ7.Z7_FILIAL = '" + xFilial("SZ7") + "' " + CRLF
     cQuery += "     AND SZ7.Z7_QUANT > 0 " + CRLF 
     cQuery += "     AND SZ7.Z7_DTINV = '" + DToS(dDataBase) + "' " + CRLF
-    cQuery += "     AND SZ7.Z7_CODUSR = '" + __cUserId + "' " + CRLF
+    cQuery += "     AND SZ7.Z7_CODUSR = '" + RetCodUsr() + "' " + CRLF
     cQuery += "     AND SZ7.D_E_L_E_T_ = ' ' " + CRLF
     cQuery += " ORDER BY SZ7.R_E_C_N_O_ DESC " + CRLF
 

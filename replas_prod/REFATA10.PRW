@@ -111,7 +111,7 @@ Rotina chama a carga os dados
 @param oSay, object, Objeto para carga de mensagem
 /*/
 Static Function LoadDados(oSay)
-    Local cFilBkp := cFilAnt
+    Local cFilBkp := FWCodFil()
 
     cFilAnt := cFilDest
     //-- PV Destino

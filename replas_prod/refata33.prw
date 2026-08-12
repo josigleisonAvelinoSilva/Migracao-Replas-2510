@@ -19,7 +19,7 @@ Private cPedido := Space(TamSX3("C5_NUM")[1])
 Private cItemPv := Space(TamSX3("C6_ITEM")[1]) 
 Private cVolume := ""
 
-If cFilAnt # cFilOrig
+If FWCodFil() # cFilOrig
     VtBeep(2)
     VtAlert("Paletizacao permitida somente na filial " + cFilOrig, "Aviso", .T., 4000)
     Return

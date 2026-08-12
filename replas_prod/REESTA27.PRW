@@ -28,7 +28,7 @@ User Function REESTA27()
     Private cCodRps   := ""
     Private lSetOff   := .F.
 
-	If cFilAnt # cFilOrig
+	If FWCodFil() # cFilOrig
         VtBeep(2)
         VtAlert("Recebimento Polyplex permitido somente na Filial " + cFilOrig, "ATENCAO", .T., 3000)
 		Return
@@ -191,7 +191,7 @@ Static Function fGrvSZD(cForIN, cLjIN, cLoteFor, nQtdPeso, cProdFor)
             SZD->ZD_QTD     := nQtdPeso
             SZD->ZD_DCONF   := dDataBase
             SZD->ZD_HCONF   := Left(Time(), 5) 
-            SZD->ZD_USER    := __CUSERID
+            SZD->ZD_USER    := RetCodUsr()
         SZD->(dbUnLock())
     Endif
 

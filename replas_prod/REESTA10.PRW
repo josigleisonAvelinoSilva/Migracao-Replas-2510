@@ -24,7 +24,7 @@ User Function REESTA10()
     Private cForIN    := ""     //--Cod.Fornecedor Innova 
     Private cLjIN     := ""     //--Loja Forneceor Innova
 
-	If cFilAnt # cFilOrig
+	If FWCodFil() # cFilOrig
         VtBeep(2)
         VtAlert( "Somente e permitido realizar o Recebimento na Filial  : " + cFilOrig, "ATENCAO", .T., 3000 )
 		Return
@@ -277,7 +277,7 @@ Static Function fGrvSZD( cDoc, cSerie, cForIN, cLjIN, cLoteFor, nPesoFor, cCodFo
         SZD->ZD_QTD     := nPesoFor
         SZD->ZD_DCONF   := dDataBase
         SZD->ZD_HCONF   := Left( Time(), 5 ) 
-        SZD->ZD_USER    := __CUSERID
+        SZD->ZD_USER    := RetCodUsr()
         
         SZD->( dbUnLock() )
     Endif

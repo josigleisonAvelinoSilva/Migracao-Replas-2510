@@ -235,7 +235,7 @@ Static Function VldCodBar(cCodBarra)
     TCQUERY cQuery New Alias "_QRYSLD"
 
     If _QRYSLD->(!EoF())
-        If !(_QRYSLD->B8_FILIAL == cFilAnt)
+        If !(_QRYSLD->B8_FILIAL == FWCodFil())
             cObserv += "Bobina com saldo na filial [" + _QRYSLD->B8_FILIAL + "].|"
         EndIf
 

@@ -15,7 +15,7 @@ User Function a650saldo()
     //Local cFilOrig := GetMV( "RE_FILORIG", .F., "0302" )
     Local cFilDest := GetMV( "RE_FILDEST", .F., "0201" )
 
-    If cFilAnt == cFilDest .And. IsInCallStack("MATA650C") .And. nQtdStok > 0
+    If FWCodFil() == cFilDest .And. IsInCallStack("MATA650C") .And. nQtdStok > 0
         nQtdStok := 0
     EndIf
 

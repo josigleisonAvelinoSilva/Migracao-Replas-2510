@@ -12,7 +12,7 @@ esse preenchimento e feito com base de solicitacoes de transferencia
 /*/
 User Function REFATA09()
     Local cFilBrw  := ""
-    Local cFilBkp  := cFilAnt
+    Local cFilBkp  := FWCodFil()
     Local lTudoOk  := .F.
     Local oAutDlg  := Nil
     Local oPnlGrid := Nil
@@ -41,7 +41,7 @@ User Function REFATA09()
     cFilAnt := MV_PAR01
 
     //-- Filtro da Solicitacao de Transferencia
-    cFilBrw := "NNS_FILIAL=='"+cFilAnt+"'"
+    cFilBrw := "NNS_FILIAL=='"+FWCodFil()+"'"
     cFilBrw += ".And.NNS_STATUS=='2'"
     cFilBrw += ".And.NNS_XOP==' '"
 

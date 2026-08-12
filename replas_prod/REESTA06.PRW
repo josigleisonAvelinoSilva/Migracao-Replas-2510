@@ -19,7 +19,7 @@ User Function REESTA06()
     Local cFilDest   := GetMV( "RE_FILDEST", .F., "0201" )
     Local cCodServ   := GetMV( "RP_CODSERV", .F., "" )
     Local cNewProd   := "SV-" + AllTrim( cProduto )
-    Local cBkpFilAnt := cFilAnt
+    Local cBkpFilAnt := FWCodFil()
     Local lExistSG1  := .F.
     Local cFileLog   := ""
     Local cMsg       := ""
