@@ -76,6 +76,11 @@ Static Function IniProcImp(oPrinter, aOrdProd)
         aOrdProd := GetSC2()
     EndIf
 
+    If Empty(aOrdProd)
+        FWAlertInfo("Nenhuma Op Localizada verifique os Parâmetros novamente!", "OP não Localizada!")
+        Return
+    EndIf
+
     nSizePage := oPrinter:nPageWidth / oPrinter:nFactorHor
 
     For nX := 1 To Len(aOrdProd)
